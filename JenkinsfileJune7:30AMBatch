@@ -3,18 +3,17 @@ node{
 def mavenHome = tool name: "Maven3.6.3"
 
 stage('CheckoutCode'){
-git branch: 'development', credentialsId: 'ef60e2b1-ca4f-40df-8e22-f708df55fd1d', url: 'https://github.com/krishnasoftwaretechno-ec-projects/maven-web-application.git'
-
+ git branch: 'development', credentialsId: '957b543e-6f77-4cef-9aec-82e9b0230975', url: 'https://github.com/devopstrainingblr/maven-web-application-1.git'
 }
 
 stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
+
 /*
 stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn sonar:sonar"
 }
-
 
 stage('UploadArtifactIntoNexus'){
 sh "${mavenHome}/bin/mvn deploy"
@@ -22,15 +21,21 @@ sh "${mavenHome}/bin/mvn deploy"
 
 stage('DeployAppIntoTomcatServer')
 {
-sshagent(['1bb63c52-d48e-4048-bda8-8e3cb18e0bab']) {
-sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.108.66.184:/opt/apache-tomcat-9.0.50/webapps"   
+sshagent(['bfe1b3c1-c29b-4a4d-b97a-c068b7748cd0']) {
+ sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@35.154.190.162:/opt/apache-tomcat-9.0.50/webapps/"    
+}
 }
 
-stage('SendEmailNotfication'){
 
-emailext body: '''Build Over!!
+stage('SendEmailNotification')
+{
+emailext body: '''Build Over!...
 
 Regards,
-Krishna Software
-9986501506''', subject: 'Build Over!!', to: 'krishnadynaidu@gmail.com,vijaydevops9396@gmail.com'
+Mithun Technologies,
+9980923226''', subject: 'Build over!!', to: 'devopstrainingblr@gmail.com,bhaskar0504@gmail.com,javed.devops0706@gmail.com'
+
+}
+*/
+
 }
